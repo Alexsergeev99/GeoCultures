@@ -14,6 +14,11 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    buildFeatures{
+        viewBinding = true
+        buildConfig = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -37,7 +42,13 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(project(":domain"))
+
 }

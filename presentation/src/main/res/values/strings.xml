@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GeoCultures</string>
+    <string name="medication_info">Описание препарата</string>
+    <string name="medication_name">Препарат</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="retry">Повторить</string>
+    <string name="error_text">Что то пошло не так...</string>
+    <string name="empty_post">Пока что здесь ничего нет:(</string>
+</resources>
