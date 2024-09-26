@@ -37,6 +37,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/medication_image"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="#000000"
+            android:textFontWeight="600"
+            android:textSize="20sp"
             tools:text="@string/medication_name" />
 
         <TextView
@@ -47,6 +51,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/medication_name"
+            android:fontFamily="@font/roboto_medium"
+            android:textFontWeight="400"
+            android:textSize="16sp"
+            android:textColor="#AEB0B6"
             tools:text="@string/medication_info" />
 
         <com.google.android.material.button.MaterialButton
@@ -56,6 +64,9 @@
             android:text="@string/where_buy"
             android:gravity="center"
             android:textColor="#000000"
+            android:fontFamily="@font/roboto_bold"
+            android:textFontWeight="600"
+            android:textSize="12sp"
             app:backgroundTint="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

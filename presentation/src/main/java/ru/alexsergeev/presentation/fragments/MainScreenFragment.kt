@@ -2,13 +2,11 @@ package ru.alexsergeev.presentation.fragments
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -33,10 +31,6 @@ class MainScreenFragment : Fragment() {
     ): View {
         val binding = FragmentMainScreenBinding.inflate(inflater, container, false)
 
-        val toolbar: Toolbar = binding.toolbar
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        (activity as AppCompatActivity).supportActionBar?.title = "Список"
-
         val adapter = MedicationAdapter(
             object : OnInteractionListener {
                 override fun onClick(medication: MedicationUiModel) {
@@ -46,6 +40,9 @@ class MainScreenFragment : Fragment() {
         )
         binding.list.adapter = adapter
         binding.list.layoutManager = GridLayoutManager(context, 2)
+
+        val toolbarTitle = binding.toolbar.findViewById<TextView>(R.id.toolbar_title)
+        toolbarTitle.text = "Список"
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.medications.collectLatest { list ->

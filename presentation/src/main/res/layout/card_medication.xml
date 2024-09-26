@@ -37,6 +37,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/medication_image"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="#000000"
+            android:textFontWeight="600"
+            android:textSize="14sp"
             tools:text="@string/medication_name" />
 
         <TextView
@@ -47,25 +51,12 @@
             android:gravity="start"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="#AEB0B6"
+            android:textFontWeight="400"
+            android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@id/medication_name"
             tools:text="@string/medication_info" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/where_buy"
-            android:layout_width="wrap_content"
-            android:layout_height="240dp"
-            tools:checked="true"
-            android:checkable="true"
-            app:layout_constraintTop_toBottomOf="@id/medication_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="parent"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/where_buy"
-            android:visibility="gone"
-            app:backgroundTint="@android:color/transparent"
-            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
