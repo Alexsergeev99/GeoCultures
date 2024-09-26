@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import ru.alexsergeev.presentation.databinding.CardMedicationBinding
 import ru.alexsergeev.presentation.models.MedicationUiModel
 
-interface onInteractionListener {
+interface OnInteractionListener {
     fun onClick(medication: MedicationUiModel)
 }
 
 class MedicationAdapter(
-    private val onInteractionListener: onInteractionListener,
+    private val onInteractionListener: OnInteractionListener,
     diffCallback: DiffUtil.ItemCallback<MedicationUiModel> = MedicationUiModelDiffCallback()
 ) : ListAdapter<MedicationUiModel, MedicationViewHolder>(diffCallback) {
 
@@ -35,7 +36,7 @@ class MedicationAdapter(
 
 class MedicationViewHolder(
     private val binding: CardMedicationBinding,
-    private val onInteractionListener: onInteractionListener
+    private val onInteractionListener: OnInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(medication: MedicationUiModel?) {
@@ -43,13 +44,12 @@ class MedicationViewHolder(
             binding.apply {
                 medicationName.text = medication.name
                 medicationInfo.text = medication.info
+                binding.medicationImage.load(medication.image)
                 root.setOnClickListener {
                     onInteractionListener.onClick(medication)
                 }
             }
-            Log.d("MedicationViewHolder", "Binding medication: ${medication.name}")
         } else {
-            Log.d("MedicationViewHolder", "Binding medication: тгдд")
             binding.medicationName.text = ""
             binding.medicationInfo.text = ""
         }

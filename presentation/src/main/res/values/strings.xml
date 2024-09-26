@@ -7,4 +7,6 @@
     <string name="retry">Повторить</string>
     <string name="error_text">Что то пошло не так...</string>
     <string name="empty_post">Пока что здесь ничего нет:(</string>
+    <string name="medication_image">medication_image</string>
+    <string name="where_buy">ГДЕ КУПИТЬ</string>
 </resources>

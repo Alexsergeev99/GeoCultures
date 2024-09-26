@@ -11,11 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.adapter.MedicationAdapter
-import ru.alexsergeev.presentation.adapter.onInteractionListener
+import ru.alexsergeev.presentation.adapter.OnInteractionListener
 import ru.alexsergeev.presentation.databinding.FragmentMainScreenBinding
 import ru.alexsergeev.presentation.models.MedicationUiModel
 import ru.alexsergeev.presentation.viewmodel.MedicationViewModel
@@ -36,9 +38,9 @@ class MainScreenFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = "Список"
 
         val adapter = MedicationAdapter(
-            object : onInteractionListener {
+            object : OnInteractionListener {
                 override fun onClick(medication: MedicationUiModel) {
-                    TODO("Not yet implemented")
+                    findNavController().navigate(R.id.action_mainScreenFragment_to_medicationCardFragment)
                 }
             }
         )
@@ -48,7 +50,6 @@ class MainScreenFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.medications.collectLatest { list ->
                 adapter.submitList(list)
-                Log.d("test3", list.toString())
             }
         }
 
