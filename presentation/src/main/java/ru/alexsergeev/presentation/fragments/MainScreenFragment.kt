@@ -1,33 +1,57 @@
 package ru.alexsergeev.presentation.fragments
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.alexsergeev.presentation.adapter.MedicationAdapter
 import ru.alexsergeev.presentation.adapter.onInteractionListener
 import ru.alexsergeev.presentation.databinding.FragmentMainScreenBinding
 import ru.alexsergeev.presentation.models.MedicationUiModel
+import ru.alexsergeev.presentation.viewmodel.MedicationViewModel
 
 class MainScreenFragment : Fragment() {
 
+    private val viewModel: MedicationViewModel by viewModel()
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentMainScreenBinding.inflate(
-            inflater,
-            container,
-            false
-        )
+        val binding = FragmentMainScreenBinding.inflate(inflater, container, false)
 
-        val adapter = MedicationAdapter(object : onInteractionListener {
-            override fun onClick(medication: MedicationUiModel) {
-                TODO("Not yet implemented")
+        val toolbar: Toolbar = binding.toolbar
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        (activity as AppCompatActivity).supportActionBar?.title = "Список"
+
+        val adapter = MedicationAdapter(
+            object : onInteractionListener {
+                override fun onClick(medication: MedicationUiModel) {
+                    TODO("Not yet implemented")
+                }
+            }
+        )
+        binding.list.adapter = adapter
+        binding.list.layoutManager = GridLayoutManager(context, 2)
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.medications.collectLatest { list ->
+                adapter.submitList(list)
+                Log.d("test3", list.toString())
             }
         }
-        )
+
         return binding.root
     }
 }
