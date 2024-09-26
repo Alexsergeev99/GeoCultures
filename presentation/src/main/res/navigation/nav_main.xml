@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
     app:startDestination="@id/mainScreenFragment">
 
     <fragment
         android:id="@+id/mainScreenFragment"
         android:name="ru.alexsergeev.presentation.fragments.MainScreenFragment"
-        android:label="MainScreenFragment" />
+        android:label="MainScreenFragment" >
+        <action
+            android:id="@+id/action_mainScreenFragment_to_medicationCardFragment"
+            app:destination="@id/medicationCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicationCardFragment"
+        android:name="ru.alexsergeev.presentation.fragments.MedicationCardFragment"
+        android:label="fragment_medication_card"
+        tools:layout="@layout/fragment_medication_card" >
+        <action
+            android:id="@+id/action_medicationCardFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
 </navigation>
