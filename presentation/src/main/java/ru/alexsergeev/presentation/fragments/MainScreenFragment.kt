@@ -20,6 +20,43 @@ import ru.alexsergeev.presentation.databinding.FragmentMainScreenBinding
 import ru.alexsergeev.presentation.models.MedicationUiModel
 import ru.alexsergeev.presentation.viewmodel.MedicationViewModel
 
+//class MainScreenFragment : Fragment() {
+//
+//    private val viewModel: MedicationViewModel by viewModel()
+//
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        val binding = FragmentMainScreenBinding.inflate(inflater, container, false)
+//
+//        val adapter = MedicationAdapter(
+//            object : OnInteractionListener {
+//                override fun onClick(medication: MedicationUiModel) {
+//                    Bundle().apply {
+//                        idArg = medication.id
+//                    }
+//                    findNavController().navigate(R.id.action_mainScreenFragment_to_medicationCardFragment)
+//                }
+//            }
+//        )
+//        binding.list.adapter = adapter
+//        binding.list.layoutManager = GridLayoutManager(context, 2)
+//
+//        val toolbarTitle = binding.toolbar.findViewById<TextView>(R.id.toolbar_title)
+//        toolbarTitle.text = "Список"
+//
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.medications.collectLatest { list ->
+//                adapter.submitList(list)
+//            }
+//        }
+//
+//        return binding.root
+//    }
+//}
+
 class MainScreenFragment : Fragment() {
 
     private val viewModel: MedicationViewModel by viewModel()
@@ -34,7 +71,13 @@ class MainScreenFragment : Fragment() {
         val adapter = MedicationAdapter(
             object : OnInteractionListener {
                 override fun onClick(medication: MedicationUiModel) {
-                    findNavController().navigate(R.id.action_mainScreenFragment_to_medicationCardFragment)
+                    val bundle = Bundle().apply {
+                        putInt("idArg", medication.id) // Передаем ID через Bundle
+                    }
+                    findNavController().navigate(
+                        R.id.action_mainScreenFragment_to_medicationCardFragment,
+                        bundle
+                    )
                 }
             }
         )

@@ -7,7 +7,7 @@ data class ListResponse(
     val name: String,
     val description: String,
     val documentation: String,
-    val fields: Fields
+    val fields: List<Field>
 )
 
 data class Categories(
@@ -17,7 +17,7 @@ data class Categories(
     val name: String
 )
 
-data class Fields(
+data class Field(
     val type: String,
     val name: String,
     val value: String,

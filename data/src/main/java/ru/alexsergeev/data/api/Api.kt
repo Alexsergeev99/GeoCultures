@@ -6,24 +6,22 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.alexsergeev.data.BuildConfig
 import ru.alexsergeev.data.models.ListResponse
 import java.util.concurrent.TimeUnit
 
-internal const val BASE_URL = "https://shans.d2.i-partner.ru/api/ppp/"
+internal const val BASE_URL = "http://shans.d2.i-partner.ru"
 
 internal interface ApiService {
-    @GET("index/")
+    @GET("/api/ppp/index/")
     suspend fun getAll(
-        @Query("id") id: Int,
         @Query("search") search: String? = null,
-        @Query("crop_id") cropId: Int,
-        @Query("harmful_object_id") harmfulObjectId: Int,
-        @Query("ingredient_id") ingredientId: Int,
-        @Query("offset") offset: Int,
-        @Query("limit") limit: Int
     ): Response<List<ListResponse>>
+
+    @GET("item/")
+    suspend fun getMedicationById(@Query("id") id: Int): Response<ListResponse>
 }
 
 internal fun provideOkHttpClient() = if (BuildConfig.DEBUG) {

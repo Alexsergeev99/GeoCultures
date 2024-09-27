@@ -5,5 +5,5 @@ import ru.alexsergeev.domain.models.MedicationDomainModel
 
 interface MainRepository {
     fun getMedicationList(): Flow<List<MedicationDomainModel>>
-    fun getMedication(id: String): Flow<MedicationDomainModel>
+    fun getMedication(id: Int): Flow<MedicationDomainModel>
 }

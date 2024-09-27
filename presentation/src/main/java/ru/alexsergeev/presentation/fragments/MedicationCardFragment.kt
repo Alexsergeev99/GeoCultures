@@ -10,17 +10,19 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.transition.Visibility
 import coil.load
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.databinding.FragmentMainScreenBinding
 import ru.alexsergeev.presentation.databinding.FragmentMedicationCardBinding
+import ru.alexsergeev.presentation.utils.IntArg
 import ru.alexsergeev.presentation.viewmodel.MedicationViewModel
 
 class MedicationCardFragment : Fragment() {
-
     private val viewModel: MedicationViewModel by viewModel()
 
     override fun onCreateView(
@@ -29,14 +31,18 @@ class MedicationCardFragment : Fragment() {
     ): View? {
         val binding = FragmentMedicationCardBinding.inflate(inflater, container, false)
 
-        val medication = viewModel.medications.value[0]
+        val medicationId = arguments?.getInt("idArg")
 
-        binding.singleMedication.medicationName.text = medication.name
-        binding.singleMedication.medicationInfo.text = medication.info
-        binding.singleMedication.medicationImage.load(medication.image)
+        medicationId?.let {
+            val medication = viewModel.getMedication(it)
 
-        val toolbarTitle = binding.toolbar.findViewById<TextView>(R.id.toolbar_title)
-        toolbarTitle.text = medication.name
+            binding.singleMedication.medicationName.text = medication?.name
+            binding.singleMedication.medicationInfo.text = medication?.info
+            binding.singleMedication.medicationImage.load(medication?.image)
+
+            val toolbarTitle = binding.toolbar.findViewById<TextView>(R.id.toolbar_title)
+            toolbarTitle.text = medication?.name
+        }
 
         val backButton = binding.toolbar.findViewById<ImageButton>(R.id.button_back)
         backButton.setOnClickListener {
