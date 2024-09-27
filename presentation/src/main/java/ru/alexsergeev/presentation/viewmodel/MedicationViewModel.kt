@@ -32,6 +32,9 @@ internal class MedicationViewModel(
     private val isLoadingMutable = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> get() = isLoadingMutable
 
+    private val searchedTextMutable = MutableStateFlow<String>("")
+    private val searchedText: StateFlow<String> = searchedTextMutable
+
     init {
         getMedicationList()
     }
@@ -39,7 +42,7 @@ internal class MedicationViewModel(
     private fun getMedicationList() {
         viewModelScope.launch {
             try {
-                getMedicationListUseCase.invoke()
+                getMedicationListUseCase.invoke(searchedText.value)
                     .collect { medicationList ->
                         _medications.update {
                             domainMedicationListToUiMedicationListMapper.map(medicationList)
@@ -47,8 +50,14 @@ internal class MedicationViewModel(
                     }
             } catch (e: IOException) {
                 Log.e("test", "Network error: ${e.message}")
+                _medications.update {
+                    domainMedicationListToUiMedicationListMapper.map(mockMedications)
+                }
             } catch (e: Exception) {
                 Log.e("test", "Unexpected error: ${e.message}")
+                _medications.update {
+                    domainMedicationListToUiMedicationListMapper.map(mockMedications)
+                }
             }
         }
     }
@@ -64,10 +73,21 @@ internal class MedicationViewModel(
                     }
             } catch (e: IOException) {
                 Log.e("test", "Network error: ${e.message}")
+                _medication.update {
+                    domainMedicationToUiMedicationMapper.map(mockMedications[0])
+                }
             } catch (e: Exception) {
                 Log.e("test", "Unexpected error: ${e.message}")
+                _medication.update {
+                    domainMedicationToUiMedicationMapper.map(mockMedications[0])
+                }
             }
         }
         return medication.value
+    }
+
+    fun setSearchText(text: String) {
+        searchedTextMutable.value = text
+        getMedicationList()
     }
 }

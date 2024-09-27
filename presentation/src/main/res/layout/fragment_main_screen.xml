@@ -14,8 +14,17 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <include layout="@layout/toolbar_custom" />
-
     </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/search_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Поиск..."
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/list"
+        android:padding="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
@@ -23,7 +32,7 @@
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/search_field"
         tools:listitem="@layout/card_medication" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

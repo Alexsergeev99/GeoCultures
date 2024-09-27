@@ -18,11 +18,9 @@ internal class MainRepositoryImpl(
     private val domainModelMapper: ListResponseToMedicationDomainModelMapper
 ) : MainRepository {
 
-    override fun getMedicationList(): Flow<List<MedicationDomainModel>> = flow {
+    override fun getMedicationList(search: String): Flow<List<MedicationDomainModel>> = flow {
         try {
-            val response = apiService.getAll(
-                search = " ",
-            )
+            val response = apiService.getAll(search = search)
             if (!response.isSuccessful) {
                 throw ApiError(response.code(), response.message())
             }

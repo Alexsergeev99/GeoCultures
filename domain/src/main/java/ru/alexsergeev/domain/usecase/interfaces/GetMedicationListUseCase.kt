@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.alexsergeev.domain.models.MedicationDomainModel
 
 interface GetMedicationListUseCase {
-    operator fun invoke(): Flow<List<MedicationDomainModel>>
+    operator fun invoke(search: String): Flow<List<MedicationDomainModel>>
 }
 
 interface GetMedicationUseCase {

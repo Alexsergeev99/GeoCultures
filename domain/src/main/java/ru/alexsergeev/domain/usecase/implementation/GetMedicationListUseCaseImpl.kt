@@ -8,7 +8,7 @@ import ru.alexsergeev.domain.usecase.interfaces.GetMedicationUseCase
 
 internal class GetMedicationListUseCaseImpl(private val repository: MainRepository) :
     GetMedicationListUseCase {
-    override fun invoke(): Flow<List<MedicationDomainModel>> = repository.getMedicationList()
+    override fun invoke(search: String): Flow<List<MedicationDomainModel>> = repository.getMedicationList(search)
 }
 
 internal class GetMedicationUseCaseImpl(private val repository: MainRepository) :
